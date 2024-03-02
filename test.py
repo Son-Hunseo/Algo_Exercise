@@ -1,1 +1,1 @@
-print(True)
+print(int(1.5))
