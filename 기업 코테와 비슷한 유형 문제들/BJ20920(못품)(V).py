@@ -1,26 +1,27 @@
 import sys
-input = sys.stdin.readline
 
-n,m = map(int, input().split())
-d = {}
-for _ in range(n):
-    name = input().strip()
+n, m = map(int, input().split())
+word_dict = {}
 
-    if len(name) < m:
+for i in range(n):
+    word = sys.stdin.readline().rstrip()
+    if len(word) < m:
         continue
-        # d.get()은 해당 값이 존재하면 값을 반환 없으면 None을 반환
-    if d.get(name):
-        # 단어가 존재하면 개수 하나 증가
-        d[name][0] += 1
+
+    if word in word_dict.keys():
+        word_dict[word][0] += 1
     else:
-        # 존재하지 않으면 [개수, 길이, 단어] 추가
-        d[name] = [1, len(name), name]
+        word_dict.update({word: [1, len(word), word]})
 
-print(d)
-# 개수, 길이는 내림차순으로 단어는 사전순(오름차순)으로 정렬
-# 여기서 d.items() 는 딕셔너리 안의 값들을 (키, 밸류)형식의 값들의 리스트로 반환한다.
-# 따라서 x[1]은 각 값의 밸류를 뜻하며 x[1][0]은 각 단어의 개수를 의미한다.
-ans = sorted(d.items(), key= lambda x: (-x[1][0], -x[1][1], x[1][2]))
+# dict.values() : 딕셔너리 안의 밸류만 다 꺼내서 리스트 형태(리스트와 비슷한)로 저장
+# dict.keys() : 딕셔너리 안의 키만 다 꺼내서 리스트 형태(리스트와 비슷한)로 저장
+# dict.items() : 딕셔너리 안의 키, 밸류 다 꺼내서 (키, 밸류) 형태의 원소를 가진 리스트 형태(리스트와 비슷한)로 저장
+word_list = list(word_dict.values())
 
-for a in ans:
-    print(a[0])
+def logic(data): # 이렇게 여러 요소를 가지고 정렬할 때 내림차순일 경우 - 를 붙이는 테크닉 필요
+    return [-data[0], -data[1], data[2]]
+
+word_list.sort(key=logic)
+
+for con in word_list:
+    print(con[2])
