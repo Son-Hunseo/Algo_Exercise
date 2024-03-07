@@ -1,3 +1,3 @@
-data = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], [2]]
+d = {'hi':1, 'hii':2}
 
-print(data[-1])
+print(d.items())
